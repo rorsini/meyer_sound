@@ -14,6 +14,7 @@
       <th>Product</th>
       <th>Category</th>
       <th>Description</th>
+      <th>Resource</th>
     </tr>
   </thead>
   <tbody>
@@ -21,13 +22,14 @@
       <tr>
         <td>{{ product.id }}</td>
         <td><img src="{{ product.imageUrl }}" width="100px" /></td>
-        <td><strong>{{ product.code }}</strong></td>
+        <td><strong><a href="{{ product.getProductUrl }}" target="_blank">{{ product.code }}</a></strong></td>
         <td>
           {% for category in product.getCategory() %}
-              {{ category.name }}<br/><br/>
+              <nobr>{{ category.name }}</nobr><br/>
           {% endfor %}
         </td>
         <td>{{ product.description }}</td>
+        <td><strong><a href="{{ product.getResourceUrl }}" target="_blank">View resource</a></strong></td>
       </tr>
     {% endfor %}
   </tbody>
