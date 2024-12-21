@@ -66,13 +66,12 @@ class AppFixtures extends Fixture
 
             foreach($item[5] as $cat) {
 
-              if (!in_array($cat, $cat_cache)) {
+              $category = $manager->getRepository(Category::Class)->findOneByName($cat);
+              if (!$category) {
                 $category = new Category();
                 $category->setName($cat);
                 $manager->persist($category);
-                array_push($cat_cache, $cat);
               }
-
               $product->addCategory($category);
             }
 

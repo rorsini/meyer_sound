@@ -9,16 +9,24 @@
 <table class="styled-table">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Image</th>
       <th>Product</th>
+      <th>Category</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
     {% for product in products %}
       <tr>
+        <td>{{ product.id }}</td>
         <td><img src="{{ product.imageUrl }}" width="100px" /></td>
         <td><strong>{{ product.code }}</strong></td>
+        <td>
+          {% for category in product.getCategory() %}
+              {{ category.name }}<br/><br/>
+          {% endfor %}
+        </td>
         <td>{{ product.description }}</td>
       </tr>
     {% endfor %}
