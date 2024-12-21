@@ -10,12 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     #[Route('/')]
-    public function number(): Response
+    public function show(EntityManagerInterface $entityManager): Response
     {
-        $number = random_int(0, 100);
+
+
+        $repository = $entityManager->getRepository(Product::class);
+        $products = $repository->findAll();
+
+        $total_products = count($products);
 
         return $this->render('product/index.html.twig', [
-            'number' => $number,
+            'total_products' => $total_products,
+            'products' => $products,
         ]);
     }
 

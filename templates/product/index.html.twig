@@ -1,13 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Meyer Sound</title>
-    </head>
-    <body>
-        <h1>Meyer Sound - Products</h1>
+{% extends 'product/layout.html.twig' %}
 
-        <h2>Product number is {{ number }}</h2>
+{% block page_contents %}
 
-        <a href="/product">Add Product</a>
-    </body>
-</html>
+<h3>Total Products: {{ total_products }}</h3>
+
+<a href="/product">Add Product</a>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Product</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+      <tr>
+        <td><img src="{{ product.imageUrl }}" width="100px" /></td>
+        <td><strong>{{ product.code }}</strong></td>
+        <td>{{ product.description }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
