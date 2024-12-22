@@ -11,22 +11,23 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        // Create categories:
-        $cats_hash = array();
         $ms_categories = array(
-                        'lf',
-                        'cine-studio',
-                        'point-source',
-                        'create',
-                        'acoustic',
-                        'line-array',
-                        'power',
-                        'noseries'
-                      );
+                           'lf',
+                           'cine-studio',
+                           'point-source',
+                           'create',
+                           'acoustic',
+                           'line-array',
+                           'power',
+                           'noseries'
+                         );
+
+        // Create categories:
         foreach ($ms_categories as $cat) {
             $category = new Category();
             $category->setName($cat);
             $manager->persist($category);
+
             $cats_hash[$cat] = $category;
         }
         $manager->flush();
@@ -88,7 +89,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($product);
         }
-
         $manager->flush();
     }
 }
