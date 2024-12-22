@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Entity\TestStatus;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -11,6 +12,9 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        //
+        // Create categories:
+        //
         $ms_categories = array(
                            'lf',
                            'cine-studio',
@@ -21,8 +25,7 @@ class AppFixtures extends Fixture
                            'power',
                            'noseries'
                          );
-
-        // Create categories:
+        $cats_hash = array();
         foreach ($ms_categories as $cat) {
             $category = new Category();
             $category->setName($cat);
@@ -32,6 +35,28 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        //
+        // Create test statuses:
+        //
+        $ms_test_status = array(
+                           'pass',
+                           'fail',
+                           'not run',
+                           'test error',
+                         );
+        $status_hash = array();
+        foreach ($ms_test_status as $name) {
+            $status= new TestStatus();
+            $status->setName($name);
+            $manager->persist($status);
+
+            $status_hash[$name] = $status;
+        }
+        $manager->flush();
+
+        //
+        // Create products:
+        //
         $ms_products = array(
             array('750-LFC', 'Very Compact Low-Frequency Control Element', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2017/03/750-lfc_1600x900.jpg', 'https://meyersound.com/product/750-lfc/', 'https://docs.meyersound.com/products/en/750-lfc.html', array('lf')),
             array('900-LFC', 'Compact Low-Frequency Control Element', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2017/01/900-lfc_full.jpg', 'https://meyersound.com/product/900-lfc/', 'https://docs.meyersound.com/products/en/900-lfc.html', array('lf')),
@@ -73,8 +98,7 @@ class AppFixtures extends Fixture
             array('X-400C', 'Compact Cinema Subwoofer', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2017/01/x-400c_full.jpg', 'https://meyersound.com/product/x-400c/', 'https://docs.meyersound.com/products/en/x-400c.html', array('cine-studio')),
             array('X-800C', 'High-Power Cinema Subwoofer', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2019/07/x-800c_full.jpg', 'https://meyersound.com/product/x-800c/', 'https://docs.meyersound.com/products/en/x-800c.html', array('cine-studio')),
         );
-
-        // Create products:
+        $products_hash = array();
         foreach($ms_products as $item) {
             $product = new Product();
             $product->setCode($item[0]);
@@ -86,6 +110,7 @@ class AppFixtures extends Fixture
             foreach ($item[5] as $cat) {
                 $product->addCategory($cats_hash[$cat]);
             }
+            $products_hash[$item[0]] = $product;
 
             $manager->persist($product);
         }

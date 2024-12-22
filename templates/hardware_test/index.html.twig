@@ -1,23 +1,25 @@
-{% extends 'category/layout.html.twig' %}
+{% extends 'hardware_test/layout.html.twig' %}
 
 {% block page_contents %}
 
-<h3>Total Categories: <span style="color: red;">{{ total_categories }}</span></h3>
+<h3>Total HardwareTests: <span style="color: red;">{{ total_hardware_tests }}</span></h3>
 
 <table class="styled-table">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Series</th>
-      <th>Products</th>
+      <th>Name</th>
+      <th>Product</th>
+      <th>Test Status</th>
     </tr>
   </thead>
   <tbody>
-    {% for category in categories %}
+    {% for test in hardware_tests %}
       <tr>
-        <td>{{ category.id }}</td>
-        <td><strong>{{ category.name|upper }}</strong></td>
-        <td><strong><a href="/{{ category.id }}">View Products</a></strong></td>
+        <td>{{ test.id }}</td>
+        <td><strong>{{ test.name }}</strong></td>
+        <td><strong>{{ test.product.name}}</strong></td>
+        <td><strong>{{ test.status }}</strong></td>
       </tr>
     {% endfor %}
   </tbody>

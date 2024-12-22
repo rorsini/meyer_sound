@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
 {
-    #[Route('/{cat_id}')]
+    #[Route('/product/{cat_id}')]
     public function show(EntityManagerInterface $entityManager, int $cat_id = NULL): Response
     {
         $category = NULL;
