@@ -2,7 +2,13 @@
 
 {% block page_contents %}
 
-<h3>Total Products: {{ total_products }}</h3>
+<h3>
+  Total Products: <span style="color: red;">{{ total_products }}</span>
+  {% if category %}
+    / Filtered by: <span style="color: red;">{{ category.name|upper }}</span>
+  {% endif %}
+</h3>
+
 
 <table class="styled-table">
   <thead>
@@ -20,10 +26,19 @@
       <tr>
         <td>{{ product.id }}</td>
         <td><img src="{{ product.imageUrl }}" width="100px" /></td>
-        <td><strong><a href="{{ product.getProductUrl }}" target="_blank">{{ product.code }}</a></strong></td>
+        <td>
+          <strong>
+            <a href="{{ product.getProductUrl }}" target="_blank">
+              {{ product.code }}
+              <img src="/images/new-tab.svg" width="14px" style="vertical-align:middle"/>
+            </a>
+          </strong>
+        </td>
         <td>
           {% for category in product.getCategory() %}
-              <span class="nobr"><strong>{{ category.name|upper }}</strong></span><br/>
+            <span class="nobr">
+              <strong><a href="/{{ category.id }}">{{ category.name|upper }}</a></strong>
+            </span><br/>
           {% endfor %}
         </td>
         <td>{{ product.description }}</td>
@@ -31,6 +46,7 @@
           <strong>
             <a href="{{ product.getResourceUrl }}" target="_blank">
               View resource
+              <img src="/images/new-tab.svg" width="14px" style="vertical-align:middle"/>
             </a>
           </strong>
         </td>

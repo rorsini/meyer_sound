@@ -13,6 +13,7 @@ class ProductController extends AbstractController
     #[Route('/{cat_id}')]
     public function show(EntityManagerInterface $entityManager, int $cat_id = NULL): Response
     {
+        $category = NULL;
         if ($cat_id == NULL) {
             $repository = $entityManager->getRepository(Product::class);
             $products = $repository->findAll();
@@ -27,6 +28,7 @@ class ProductController extends AbstractController
         return $this->render('product/index.html.twig', [
             'total_products' => $total_products,
             'products' => $products,
+            'category' => $category,
         ]);
     }
 }
