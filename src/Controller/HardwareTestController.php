@@ -22,4 +22,18 @@ class HardwareTestController extends AbstractController
             'hardware_tests' => $hardware_tests,
         ]);
     }
+
+    #[Route('/create_hardware_test')]
+    public function create(EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(HardwareTest::class);
+        $hardware_tests = $repository->findAll();
+
+        $total_hardware_tests = count($hardware_tests);
+
+        return $this->render('hardware_test/form.html.twig', [
+            'total_hardware_tests' => $total_hardware_tests,
+            'hardware_tests' => $hardware_tests,
+        ]);
+    }
 }
