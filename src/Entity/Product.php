@@ -36,9 +36,16 @@ class Product
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
     private Collection $category;
 
+    /**
+     * @var Collection<int, HardwareTest>
+     */
+    #[ORM\ManyToMany(targetEntity: HardwareTest::class, mappedBy: 'product')]
+    private Collection $hardwareTests;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->hardwareTests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +133,33 @@ class Product
     public function removeCategory(Category $category): static
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HardwareTest>
+     */
+    public function getHardwareTests(): Collection
+    {
+        return $this->hardwareTests;
+    }
+
+    public function addHardwareTest(HardwareTest $hardwareTest): static
+    {
+        if (!$this->hardwareTests->contains($hardwareTest)) {
+            $this->hardwareTests->add($hardwareTest);
+            $hardwareTest->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHardwareTest(HardwareTest $hardwareTest): static
+    {
+        if ($this->hardwareTests->removeElement($hardwareTest)) {
+            $hardwareTest->removeProduct($this);
+        }
 
         return $this;
     }
