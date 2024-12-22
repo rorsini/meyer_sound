@@ -24,16 +24,16 @@
                 </main>
                 <section class="left-sidebar">
                   <p>
-                    <a href="/product"><button class="button" role="button">Products</button><a>
+                    <a href="/product"><button class="{{ util.navClass('product') }}" role="button">Products</button><a>
                   </p>
                   <p>
-                    <a href="/category"><button class="button" role="button">Categories</button></a>
+                    <a href="/category"><button class="{{ util.navClass('category') }}" role="button">Categories</button></a>
                   </p>
                   <p>
-                    <a href="/hardware_test"><button class="button" role="button">Hardware Tests</button></a>
+                    <a href="/hardware_test"><button class="{{ util.navClass('hardwaretest') }}" role="button">Hardware Tests</button></a>
                   </p>
                   <p>
-                    <a href="/test_status"><button class="button" role="button">Test Statuses</button></a>
+                    <a href="/test_status"><button class="{{ util.navClass('teststatus') }}" role="button">Test Statuses</button></a>
                   </p>
                 </section>
                 <footer class="footer">

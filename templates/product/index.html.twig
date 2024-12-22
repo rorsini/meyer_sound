@@ -5,8 +5,8 @@
 <h3>
   Total Products: <span style="color: red;">{{ total_products }}</span>
   {% if category %}
-    / Filtered by: <span style="color: red;">{{ category.name|upper }}</span>
-    <a href="/">(clear)</a>
+    &nbsp; / &nbsp; Filtering by: <span style="color: red;">{{ category.name|upper }}</span>
+    <a href="/product">(clear)</a>
   {% endif %}
 </h3>
 
@@ -38,7 +38,7 @@
         <td>
           {% for category in product.getCategory() %}
             <span class="nobr">
-              <strong><a href="/{{ category.id }}">{{ category.name|upper }}</a></strong>
+              <strong><a href="/product/{{ category.id }}">{{ category.name|upper }}</a></strong>
             </span><br/>
           {% endfor %}
         </td>

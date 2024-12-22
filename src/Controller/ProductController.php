@@ -8,10 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\HttpUtils;
+
 class ProductController extends AbstractController
 {
     #[Route('/product/{cat_id}')]
-    public function show(EntityManagerInterface $entityManager, int $cat_id = NULL): Response
+    public function show(Request $request, HttpUtils $utils, EntityManagerInterface $entityManager, int $cat_id = NULL): Response
     {
         $category = NULL;
         if ($cat_id == NULL) {
