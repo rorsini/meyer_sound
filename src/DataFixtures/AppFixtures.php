@@ -11,6 +11,25 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        // Create categories:
+        $cats_hash = array();
+        $ms_categories = array(
+                        'lf',
+                        'cine-studio',
+                        'point-source',
+                        'create',
+                        'acoustic',
+                        'line-array',
+                        'power',
+                        'noseries'
+                      );
+        foreach ($ms_categories as $cat) {
+            $category = new Category();
+            $category->setName($cat);
+            $manager->persist($category);
+            $cats_hash[$cat] = $category;
+        }
+        $manager->flush();
 
         $ms_products = array(
             array('750-LFC', 'Very Compact Low-Frequency Control Element', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2017/03/750-lfc_1600x900.jpg', 'https://meyersound.com/product/750-lfc/', 'https://docs.meyersound.com/products/en/750-lfc.html', array('lf')),
@@ -54,8 +73,7 @@ class AppFixtures extends Fixture
             array('X-800C', 'High-Power Cinema Subwoofer', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2019/07/x-800c_full.jpg', 'https://meyersound.com/product/x-800c/', 'https://docs.meyersound.com/products/en/x-800c.html', array('cine-studio')),
         );
 
-        $cat_cache = array();
-
+        // Create products:
         foreach($ms_products as $item) {
             $product = new Product();
             $product->setCode($item[0]);
@@ -64,15 +82,8 @@ class AppFixtures extends Fixture
             $product->setProductUrl($item[3]);
             $product->setResourceUrl($item[4]);
 
-            foreach($item[5] as $cat) {
-
-              $category = $manager->getRepository(Category::Class)->findOneByName($cat);
-              if (!$category) {
-                $category = new Category();
-                $category->setName($cat);
-                $manager->persist($category);
-              }
-              $product->addCategory($category);
+            foreach ($item[5] as $cat) {
+                $product->addCategory($cats_hash[$cat]);
             }
 
             $manager->persist($product);

@@ -6,6 +6,8 @@ html {
     font-size: calc(12px + 0.390625vw);
 }
 
+.nobr { white-space: nowrap;  hyphens: none; }
+
 .styled-table {
     border-collapse: collapse;
     margin: 25px 0;

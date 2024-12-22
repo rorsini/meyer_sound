@@ -25,11 +25,17 @@
         <td><strong><a href="{{ product.getProductUrl }}" target="_blank">{{ product.code }}</a></strong></td>
         <td>
           {% for category in product.getCategory() %}
-              <nobr>{{ category.name }}</nobr><br/>
+              <span class="nobr"><strong>{{ category.name|upper }}</strong></span><br/>
           {% endfor %}
         </td>
         <td>{{ product.description }}</td>
-        <td><strong><a href="{{ product.getResourceUrl }}" target="_blank">View resource</a></strong></td>
+        <td>
+          <strong>
+            <a href="{{ product.getResourceUrl }}" target="_blank">
+              View resource
+            </a>
+          </strong>
+        </td>
       </tr>
     {% endfor %}
   </tbody>
