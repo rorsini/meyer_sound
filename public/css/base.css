@@ -169,3 +169,10 @@ button {
   font-size: 3em;
   font-weight: bold;
 }
+
+.row {
+  padding: 6px;
+}
+.columns {
+  font-weight: bold;
+}
