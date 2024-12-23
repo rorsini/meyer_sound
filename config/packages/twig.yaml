@@ -2,6 +2,7 @@ twig:
     file_name_pattern: '*.twig'
     globals:
         util: '@App\Service\TwigUtils'
+    form_themes: ['tailwind_2_layout.html.twig']
 
 when@test:
     twig:

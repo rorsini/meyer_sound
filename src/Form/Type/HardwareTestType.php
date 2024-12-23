@@ -20,11 +20,11 @@ class HardwareTestType extends AbstractType
         ]);
         $builder->add('product', EntityType::class, [
             'class' => Product::class,
-            'choice_label' => 'code'
+            'choice_label' => 'Code'
         ]);
         $builder->add('status', EntityType::class, [
             'class' => TestStatus::class,
-            'choice_label' => 'name'
+            'choice_label' => 'Name'
         ]);
         $builder->add('save', SubmitType::class);
     }

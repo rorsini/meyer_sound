@@ -3,6 +3,11 @@
 {% block content %}
     <h1>New Hardware Test</h1>
 
-    {{ form(form) }}
+    {% form_theme form 'foundation_5_layout.html.twig' %}
+
+    {{ form_start(form) }}
+        {{ form(form) }}
+    {{ form_end(form) }}
+
     {% block page_contents %}{% endblock %}
 {% endblock %}

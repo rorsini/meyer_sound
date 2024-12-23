@@ -17,17 +17,14 @@ class HardwareTestController extends AbstractController
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
         $hw_test = new HardwareTest();
+        $hw_test->setName('Vibration Stress Test');
         $entityManager->persist($hw_test);
 
         $product = new Product();
         $entityManager->persist($product);
 
-        #$hw_test.setProduct($product);
-
         $status = new TestStatus();
         $entityManager->persist($status);
-
-        #$hw_test.setStatus($status);
 
         $form = $this->createForm(HardwareTestType::class, $hw_test);
 
