@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TestStatusController extends AbstractController
 {
-    #[Route('/')]
     #[Route('/test_status')]
     public function show(EntityManagerInterface $entityManager): Response
     {
