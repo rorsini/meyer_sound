@@ -39,7 +39,7 @@ class Product
     /**
      * @var Collection<int, HardwareTest>
      */
-    #[ORM\ManyToMany(targetEntity: HardwareTest::class, mappedBy: 'product')]
+    #[ORM\OneToMany(targetEntity: HardwareTest::class, mappedBy: 'product', orphanRemoval: true)]
     private Collection $hardwareTests;
 
     public function __construct()
@@ -149,7 +149,7 @@ class Product
     {
         if (!$this->hardwareTests->contains($hardwareTest)) {
             $this->hardwareTests->add($hardwareTest);
-            $hardwareTest->addProduct($this);
+            $hardwareTest->setProduct($this);
         }
 
         return $this;
@@ -158,9 +158,15 @@ class Product
     public function removeHardwareTest(HardwareTest $hardwareTest): static
     {
         if ($this->hardwareTests->removeElement($hardwareTest)) {
-            $hardwareTest->removeProduct($this);
+            // set the owning side to null (unless already changed)
+            if ($hardwareTest->getProduct() === $this) {
+                $hardwareTest->setProduct(null);
+            }
         }
 
         return $this;
     }
+
+
+
 }

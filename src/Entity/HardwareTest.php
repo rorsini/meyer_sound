@@ -18,19 +18,16 @@ class HardwareTest
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    /**
-     * @var Collection<int, Product>
-     */
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'hardwareTests')]
-    private Collection $product;
-
     #[ORM\ManyToOne(inversedBy: 'hardwareTests')]
     #[ORM\JoinColumn(nullable: false)]
     private ?TestStatus $status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'hardwareTests')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product = null;
+
     public function __construct()
     {
-        $this->product = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -50,30 +47,6 @@ class HardwareTest
         return $this;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProduct(): Collection
-    {
-        return $this->product;
-    }
-
-    public function addProduct(Product $product): static
-    {
-        if (!$this->product->contains($product)) {
-            $this->product->add($product);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): static
-    {
-        $this->product->removeElement($product);
-
-        return $this;
-    }
-
     public function getStatus(): ?TestStatus
     {
         return $this->status;
@@ -82,6 +55,18 @@ class HardwareTest
     public function setStatus(?TestStatus $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): static
+    {
+        $this->product = $product;
 
         return $this;
     }
