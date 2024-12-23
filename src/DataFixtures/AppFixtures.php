@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\TestStatus;
+use App\Entity\HardwareTest;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -39,18 +40,18 @@ class AppFixtures extends Fixture
         // Create test statuses:
         //
         $ms_test_status = array(
-                           'pass',
-                           'fail',
-                           'not run',
-                           'test error',
+                           'Pass',
+                           'Fail',
+                           'Not Run',
+                           'Test Error',
                          );
-        $status_hash = array();
+        $statuses = array();
         foreach ($ms_test_status as $name) {
             $status= new TestStatus();
             $status->setName($name);
             $manager->persist($status);
 
-            $status_hash[$name] = $status;
+            array_push($statuses, $status);
         }
         $manager->flush();
 
@@ -98,7 +99,7 @@ class AppFixtures extends Fixture
             array('X-400C', 'Compact Cinema Subwoofer', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2017/01/x-400c_full.jpg', 'https://meyersound.com/product/x-400c/', 'https://docs.meyersound.com/products/en/x-400c.html', array('cine-studio')),
             array('X-800C', 'High-Power Cinema Subwoofer', 'https://3ca9a566.delivery.rocketcdn.me/wp-content/uploads/2019/07/x-800c_full.jpg', 'https://meyersound.com/product/x-800c/', 'https://docs.meyersound.com/products/en/x-800c.html', array('cine-studio')),
         );
-        $products_hash = array();
+        $products = array();
         foreach($ms_products as $item) {
             $product = new Product();
             $product->setCode($item[0]);
@@ -110,9 +111,45 @@ class AppFixtures extends Fixture
             foreach ($item[5] as $cat) {
                 $product->addCategory($cats_hash[$cat]);
             }
-            $products_hash[$item[0]] = $product;
+            array_push($products, $product);
 
             $manager->persist($product);
+        }
+        $manager->flush();
+
+        //
+        // Create hardware tests:
+        //
+        $ms_hardware_tests = array(
+                                 array(
+                                     'name' => 'Vibration Stress Test',
+                                     'status_id' => 1,
+                                 ),
+                                 array(
+                                     'name' => 'Mechanical Impulsive Stress Test',
+                                     'status_id' => 1,
+                                 ),
+                                 array(
+                                     'name' => 'Humidity Stress Test',
+                                     'status_id' => 2,
+                                 ),
+                                 array(
+                                     'name' => 'Temperature Stress Test',
+                                     'status_id' => 1,
+                                 ),
+                                 array(
+                                     'name' => 'Left / Right Stereo Sound Test',
+                                     'status_id' => 3,
+                                 ),
+                             );
+        foreach($ms_hardware_tests as $item) {
+            $hardwareTest = new HardwareTest();
+            $hardwareTest->setName($item['name']);
+            $product = $products[rand(1,count($products))];
+            $hardwareTest->setProduct($product);
+            $status = $statuses[$item['status_id']];
+            $hardwareTest->setStatus($status);
+            $manager->persist($hardwareTest);
         }
         $manager->flush();
     }
