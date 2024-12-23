@@ -123,19 +123,19 @@ class AppFixtures extends Fixture
         $ms_hardware_tests = array(
                                  array(
                                      'name' => 'Vibration Stress Test',
-                                     'status_id' => 1,
+                                     'status_id' => 0,
                                  ),
                                  array(
                                      'name' => 'Mechanical Impulsive Stress Test',
-                                     'status_id' => 1,
+                                     'status_id' => 0,
                                  ),
                                  array(
                                      'name' => 'Humidity Stress Test',
-                                     'status_id' => 2,
+                                     'status_id' => 1,
                                  ),
                                  array(
                                      'name' => 'Temperature Stress Test',
-                                     'status_id' => 1,
+                                     'status_id' => 0,
                                  ),
                                  array(
                                      'name' => 'Left / Right Stereo Sound Test',

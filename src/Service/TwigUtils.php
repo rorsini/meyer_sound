@@ -26,4 +26,24 @@ class TwigUtils
         $route = $request->attributes->get('_route');
         return $route;
     }
+
+    public function testColor(string $testStatus): string
+    {
+        $color = 'navy';
+        switch ($testStatus) {
+            case 'Pass':
+                $color = '#239b56';
+                break;
+            case 'Fail':
+                $color = '#e74c3c';
+                break;
+            case 'Test Error':
+                $color = '#8e44ad';
+                break;
+            case 'Not Runi':
+                $color = '#85929e';
+                break;
+        }
+        return $color;
+    }
 }
